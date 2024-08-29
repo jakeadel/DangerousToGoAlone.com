@@ -1,0 +1,174 @@
+:root {
+    --max-article-width: 600px;
+    --max-article-title-width: 850px;
+}
+                            
+.page-header {
+    height: var(--page-header-height);
+    position: relative;
+    width: 100%;
+}
+
+.page-image-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.page-img {
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page-title {
+    max-width: var(--max-article-title-width);
+    text-align: center;
+    margin-right: auto; 
+    margin-left: auto;
+}
+
+.page-author {
+
+}
+
+.page-intro {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: var(--max-article-width);
+    padding-left: var(--page-content-gutter);
+    padding-right: var(--page-content-gutter);
+    font-family: "Playfair Display Semibold", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.page-intro.top {
+    margin-top: var(--page-intro-gutter);
+
+}
+
+.page-intro.bottom {
+    margin-bottom: calc(var(--page-intro-gutter) / 2);
+}
+
+
+
+.page-text-wrapper {
+    max-width: var(--max-article-width);
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: calc(var(--page-intro-gutter) / 2);;
+    padding-left: var(--page-content-gutter);
+    padding-right: var(--page-content-gutter);
+    font-family: "Playfair Display Semibold", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.page-text-wrapper p {
+    font-size: var(--page-font-size);
+    line-height: 1.7778;
+    letter-spacing: 0.0125em;
+    margin-top: var(--paragraph-margin);
+}
+
+.page-description {
+
+}
+
+.page-description-text {
+    font-size: var(--description-font-size);
+    line-height: 1.7778;
+    letter-spacing: 0.0125em;
+}
+
+.tag-text a {
+    color: black;
+    text-decoration: none;
+    border-bottom: solid black 1px;
+}
+
+.tag-text {
+    width: fit-content;
+    text-decoration: none;
+}
+
+.tag-text a:hover {
+    background-image: url(../images/f-5.svg);
+    border-bottom: none;
+    background-position: 0 calc(100%);
+    background-size: auto 3px;
+    background-repeat: repeat-x;
+    text-decoration: none !important;
+}
+
+.page-author-text a {
+    color: black;
+    text-decoration: none;
+    border-bottom: solid black 1px;
+}
+
+.page-author-text a:hover {
+    background-image: url(../images/f-5.svg);
+    border-bottom: none;
+    background-position: 0 calc(100%);
+    background-size: auto 3px;
+    background-repeat: repeat-x;
+    text-decoration: none !important;
+}
+
+/* Color Swipe stuff */
+
+@media screen and (max-width: 768px) {
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    
+    .color-block {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    
+    .color-block-1 {
+        bottom: -100%;
+        background-color: var(--top-layer-color);
+    }
+    
+    .color-block-2 {
+        background-color:  var(--bottom-layer-color);
+        bottom: -200%;
+    }
+    
+    .show .color-block-1 {
+        bottom: 200%;
+        transition: bottom 1s ease-out;
+    }
+    
+    .show .color-block-2 {
+        bottom: 100%;
+        transition: bottom 1s ease-out;
+    }
+    
+    #content {
+        opacity: 0;
+        transform: translateY(100%);
+        transition: transform 0.5s ease-out 0.5s, opacity 0.5s ease-out 0.5s;
+        z-index: 1;
+        position: relative;
+    }
+    
+    .show-content #content {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

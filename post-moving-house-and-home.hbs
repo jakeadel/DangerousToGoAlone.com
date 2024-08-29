@@ -1,0 +1,176 @@
+{{!< default}}
+
+{{#post}}
+
+<div class="color-block color-block-1"></div>
+<div class="color-block color-block-2"></div>
+
+<div id="content" class="page">
+    <div class="page-header">
+        <div class="page-image-wrapper">
+            <img class="page-img" src="{{feature_image}}">
+        </div>
+    </div>
+    <div class="page-intro top">
+        <div class="page-tag">
+            {{#primary_tag}}
+            <h3 class="tag-text">
+                <a href="{{url}}">{{name}}</a>
+            </h3>
+            {{/primary_tag}}
+        </div>
+    </div>
+    <div class="page-title">
+        <h1 class="page-title-text">{{title}}</h1>
+    </div>
+    <div class="page-intro bottom">
+        <div class="page-description">
+            <p class="page-description-text">
+                {{custom_excerpt}}
+            </p>
+        </div>
+        {{#primary_author}}
+        <div class="page-author">
+            <h2 class="page-author-text">By <a href="{{url}}">{{name}}</a></h2>
+        </div>
+        {{/primary_author}}
+    </div>
+    <div class="break"></div>
+    <div class="page-text-wrapper" id="content-start">
+        <div class="original-content" id="original-content">
+            {{content}}
+        </div>
+    </div>
+    <div class="styled-content">
+        <div id="first"></div>
+
+        <div id="second" class="box-container">
+            <div class="back-wrapper">
+                <img src="{{asset "images/moving-house-and-home/Gone_Home_Box.png"}}" class="initial-image">
+                <div class="inner-wrapper">
+                    <div class="inner">
+                        <img src="{{asset "images/moving-house-and-home/Gone_Home_Box_Open_Base.png"}}" class="text-image">
+                        <img src="{{asset "images/moving-house-and-home/Gone_Home_Box_Open_Lid.png"}}" class="lid-image">
+                        <div class="text-box">
+                            <div class="text" id="box1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="third" class="box-container">
+            <div class="back-wrapper">
+                <img src="{{asset "images/moving-house-and-home/Unpacking_Box_Closed.png"}}" class="initial-image">
+                <div class="inner-wrapper">
+                    <div class="inner">
+                        <img src="{{asset "images/moving-house-and-home/Unpacking_Open_Inside.png"}}" class="text-image">
+                        <img src="{{asset "images/moving-house-and-home/Unpacking_Box_Lid.png"}}" class="lid-image">
+                        <div class="text-box">
+                            <div class="text" id="box2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fourth" class="box-container">
+            <div class="back-wrapper">
+                <img src="{{asset "images/moving-house-and-home/Hindsight_Box.png"}}" class="initial-image">
+                <div class="inner-wrapper">
+                    <div class="inner">
+                        <img src="{{asset "images/moving-house-and-home/Hindsight_Open_Base.png"}}" class="text-image">
+                        <img src="{{asset "images/moving-house-and-home/Hindsight_Open_Lid.png"}}" class="lid-image">
+                        <div class="text-box">
+                            <div class="text" id="box3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fifth" class="box-container">
+            <div class="back-wrapper">
+                <img src="{{asset "images/moving-house-and-home/LiS_TC_Box.png"}}" class="initial-image">
+                <div class="inner-wrapper">
+                    <div class="inner">
+                        <img src="{{asset "images/moving-house-and-home/LiS_TC_Inside_Box.png"}}" class="text-image">
+                        <img src="{{asset "images/moving-house-and-home/LiS_TC_Box_Lid.png"}}" class="lid-image">
+                        <div class="text-box">
+                            <div class="text" id="box4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sixth"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{{asset "css/custom/moving-house-and-home.css"}}">
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth > 768) {
+            const content = document.querySelectorAll('.original-content > *');
+            const originalContent = document.querySelector('.original-content');
+            originalContent.style.display = 'none';
+            let finalHTML = '';
+            const sequences = [];
+            let tempContent = '';
+
+            content.forEach((paragraph) => {
+                if (paragraph.innerHTML === '') {
+                    sequences.push(tempContent);
+                    tempContent = '';
+                } else if (paragraph.innerHTML[0] !== '('){
+                    tempContent += `<p>${paragraph.innerHTML}</p>`;
+                }
+            });
+
+            if (tempContent !== '') {
+                sequences.push(tempContent);
+            }
+
+            console.log({sequences})
+
+            document.getElementById("first").innerHTML = sequences[0];
+            document.getElementById("box1").innerHTML = sequences[1];
+            document.getElementById("box2").innerHTML = sequences[2];
+            document.getElementById("box3").innerHTML = sequences[3];
+            document.getElementById("box4").innerHTML = sequences[4];
+            document.getElementById("sixth").innerHTML = sequences[5];
+
+            // Add click event listeners to initial images
+            document.querySelectorAll('.initial-image').forEach(image => {
+                image.addEventListener('click', () => {
+                    image.style.opacity = 0;
+                    
+                    setTimeout(() => {
+                        image.style.display = 'none';
+                        // Select the closest .inner-wrapper to the clicked image and set its opacity to 1
+                        image.closest('.back-wrapper').querySelector('.inner-wrapper').style.opacity = 1;
+                    }, 300);
+                });
+            });
+        }
+        else {
+            const content = document.querySelectorAll('.original-content p');
+            const styledContent = document.querySelector('.styled-content');
+            styledContent.style.display = 'none';
+            const phrasesToRemove = [
+                '(GONE HOME BOX)',
+                '(UNPACKING BOX)',
+                '(HINDSIGHT BOX)',
+                '(LiS:TC BOX)'
+            ];
+
+            content.forEach((paragraph) => {
+                const paragraphText = paragraph.innerHTML.trim();
+                if (phrasesToRemove.includes(paragraphText)) {
+                    paragraph.remove();
+                }
+            });
+        }
+    });
+</script>
+
+{{/post}}

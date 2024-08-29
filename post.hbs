@@ -1,0 +1,49 @@
+{{!< default}}
+
+{{#post}}
+
+<div class="color-block color-block-1"></div>
+<div class="color-block color-block-2"></div>
+
+<div id="content" class="page">
+    {{#if feature_image}}
+    <div class="page-header">
+        <div class="page-image-wrapper">
+            <img class="page-img" src="{{feature_image}}">
+        </div>
+    </div>
+    {{/if}}
+    <div class="page-intro top">
+        <div class="page-tag">
+            {{#primary_tag}}
+            <h3 class="tag-text">
+                <a href="{{url}}">{{name}}</a>
+            </h3>
+            {{/primary_tag}}
+        </div>
+    </div>
+    {{#if title}}
+    <div class="page-title">
+        <h1 class="page-title-text">{{title}}</h1>
+    </div>
+    {{/if}}
+    <div class="page-intro bottom">
+        <div class="page-description">
+            <p class="page-description-text">
+                {{custom_excerpt}}
+            </p>
+        </div>
+        {{#primary_author}}
+        <div class="page-author">
+            <h2 class="page-author-text">By <a href="{{url}}">{{name}}</a></h2>
+        </div>
+        {{/primary_author}}
+    </div>
+    <div class="break"></div>
+    <div class="page-text-wrapper">
+            {{content}}
+    </div>
+</div>
+
+
+{{/post}}

@@ -1,0 +1,23 @@
+<article class="article-wrapper">
+    <a class="article-title" href="{{url}}">
+        <h1 class="title-text">{{title}}</h1>
+    </a>
+    <a class="image-wrapper" href="{{url}}">
+        <img class="article-img" src={{feature_image}}>
+        {{#if custom_excerpt}}
+            <div class="description-wrapper" id="description-wrapper">
+                <p class="post-description">{{custom_excerpt}}</p>
+            </div>
+        {{/if}}
+    </a>
+    {{#primary_author}}
+        <a class="article-author" href="{{url}}">
+            <div class="article-author-inner">
+                <h1 class="author-text">{{name}}</h1>
+                <div class="author-color-block" id="author-block-background"></div>
+            </div>
+        </a>
+    {{/primary_author}}
+    <div class="image-color-block" id="image-block-top"></div>
+    <div class="image-color-block" id="image-block-middle"></div>
+</article>

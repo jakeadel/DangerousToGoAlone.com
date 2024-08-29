@@ -1,0 +1,122 @@
+{{!< default}}
+
+{{#post}}
+
+<div class="color-block color-block-1"></div>
+<div class="color-block color-block-2"></div>
+
+<div id="content" class="page">
+    <div class="page-header">
+        <div class="page-image-wrapper">
+            <img class="page-img" src="{{feature_image}}">
+        </div>
+    </div>
+    <div class="page-intro top">
+        <div class="page-tag">
+            {{#primary_tag}}
+            <h3 class="tag-text">
+                <a href="{{url}}">{{name}}</a>
+            </h3>
+            {{/primary_tag}}
+        </div>
+    </div>
+    <div class="page-title">
+        <h1 class="page-title-text">{{title}}</h1>
+    </div>
+    <div class="page-intro bottom">
+        <div class="page-description">
+            <p class="page-description-text">
+                {{custom_excerpt}}
+            </p>
+        </div>
+        {{#primary_author}}
+        <div class="page-author">
+            <h2 class="page-author-text">By <a href="{{url}}">{{name}}</a></h2>
+        </div>
+        {{/primary_author}}
+    </div>
+    <div class="break"></div>
+    <div class="page-text-wrapper" id="content-start">
+            <div class="original-content" id="original-content">
+                {{content}}
+            </div>
+            <div class="sequence-text" id="sequence-text"></div>
+    </div>
+    <div class="footer-buttons">
+        <button class="footer-button" id="next-button">▶ START AGAIN?</button>
+        <button class="footer-button" id="quit-button" onclick="window.location.href='/';">▶ QUIT</button>
+    </div>
+</div>
+
+<style>
+    .original-content {
+        display: none;
+    }
+</style>
+
+<script>
+
+    // Divide into the sequences
+    // Separate button
+    // On click triggers either next function to fade out, replace, fade in, or quit to home page
+
+     document.addEventListener('DOMContentLoaded', function() {
+        const content = document.querySelectorAll('.original-content > *');
+        const sequences = [];
+        let tempContent = '';
+
+        console.log({content})
+
+        content.forEach((paragraph, index) => {
+            console.log("Paragraph:",  paragraph.innerHTML)
+            if (paragraph.textContent.includes('Break')) {
+                sequences.push(tempContent);
+                tempContent = '';
+            } else {
+                tempContent += `<p>${paragraph.innerHTML}</p>`;
+            }
+        });
+
+        if (tempContent) {
+            sequences.push(tempContent);
+        }
+        console.log({sequences})
+
+        let index = 0;
+        const sequence_text = document.getElementById("sequence-text");
+        sequence_text.innerHTML = sequences[0];
+
+        function fadeIn() {
+            console.log({index})
+            if (index === 5) {
+                return;
+            }
+            sequence_text.classList.add('fade');
+            setTimeout(() => {
+                index++;
+                sequence_text.innerHTML = sequences[index];
+                sequence_text.classList.remove('fade');
+
+                document.getElementsByClassName("page-title-text")[0].scrollIntoView({ behavior: "smooth" });
+
+            }, 600);
+
+            if (index === 4) {
+                document.getElementById("next-button").style.display = 'none';
+            }
+        }
+
+        document.getElementById("next-button").onclick = () => {
+            if (index === 0) {
+                fadeIn();
+            } else {
+                sequence_text.classList.add('fade');
+                setTimeout(fadeIn, 500);
+            }
+        };
+
+    });
+    
+</script>
+
+{{/post}}
