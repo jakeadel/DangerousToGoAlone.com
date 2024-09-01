@@ -50,15 +50,15 @@
         "beeper": "2.1.0",
         "cssnano": "5.1.12",
         "gscan": "4.36.1",
-        "gulp": "4.0.2",
+        "gulp": "^4.0.2",
         "gulp-concat": "2.6.1",
         "gulp-livereload": "4.0.2",
         "gulp-postcss": "9.0.1",
         "gulp-uglify": "3.0.2",
         "gulp-zip": "5.1.0",
+        "inquirer": "8.2.4",
         "postcss-color-mod-function": "3.0.3",
         "postcss-easy-import": "4.0.0",
-        "inquirer": "8.2.4",
         "pump": "3.0.0"
     },
     "browserslist": [
