@@ -48,12 +48,12 @@
 }
 
 .page-intro.top {
-    margin-top: var(--page-intro-gutter);
+    margin-top: calc(var(--page-intro-gutter) / 2);
 
 }
 
 .page-intro.bottom {
-    margin-bottom: calc(var(--page-intro-gutter) / 2);
+    margin-bottom: var(--paragraph-margin);
 }
 
 
@@ -62,7 +62,7 @@
     max-width: var(--max-article-width);
     margin-right: auto;
     margin-left: auto;
-    margin-top: calc(var(--page-intro-gutter) / 2);;
+    margin-top: calc(var(--page-intro-gutter) / 2);
     padding-left: var(--page-content-gutter);
     padding-right: var(--page-content-gutter);
     font-family: "Playfair Display Semibold", serif;
