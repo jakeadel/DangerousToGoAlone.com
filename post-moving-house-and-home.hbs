@@ -109,36 +109,37 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
-        if (window.innerWidth >= 768) {
-            const content = document.querySelectorAll('.original-content > *');
-            const originalContent = document.querySelector('.original-content');
-            originalContent.style.display = 'none';
-            let finalHTML = '';
-            const sequences = [];
-            let tempContent = '';
 
-            content.forEach((paragraph) => {
-                if (paragraph.innerHTML === '') {
-                    sequences.push(tempContent);
-                    tempContent = '';
-                } else if (paragraph.innerHTML[0] !== '('){
-                    tempContent += `<p>${paragraph.innerHTML}</p>`;
-                }
-            });
+        const content = document.querySelectorAll('.original-content > *');
+        const originalContent = document.querySelector('.original-content');
+        originalContent.style.display = 'none';
+        let finalHTML = '';
+        const sequences = [];
+        let tempContent = '';
 
-            if (tempContent !== '') {
+        content.forEach((paragraph) => {
+            if (paragraph.innerHTML === '') {
                 sequences.push(tempContent);
+                tempContent = '';
+            } else if (paragraph.innerHTML[0] !== '('){
+                tempContent += `<p>${paragraph.innerHTML}</p>`;
             }
+        });
 
-            console.log({sequences})
+        if (tempContent !== '') {
+            sequences.push(tempContent);
+        }
 
-            document.getElementById("first").innerHTML = sequences[0];
-            document.getElementById("box1").innerHTML = sequences[1];
-            document.getElementById("box2").innerHTML = sequences[2];
-            document.getElementById("box3").innerHTML = sequences[3];
-            document.getElementById("box4").innerHTML = sequences[4];
-            document.getElementById("sixth").innerHTML = sequences[5];
+        console.log({sequences})
 
+        document.getElementById("first").innerHTML = sequences[0];
+        document.getElementById("box1").innerHTML = sequences[1];
+        document.getElementById("box2").innerHTML = sequences[2];
+        document.getElementById("box3").innerHTML = sequences[3];
+        document.getElementById("box4").innerHTML = sequences[4];
+        document.getElementById("sixth").innerHTML = sequences[5];
+
+        if (window.innerWidth >= 768) {
             // Add click event listeners to both initial images and lid images in a single loop
             document.querySelectorAll('.back-wrapper').forEach(wrapper => {
                 const initialImage = wrapper.querySelector('.initial-image');
@@ -177,21 +178,15 @@
             });
         }
         else {
-            const content = document.querySelectorAll('.original-content p');
-            const styledContent = document.querySelector('.styled-content');
-            styledContent.style.display = 'none';
-            const phrasesToRemove = [
-                '(GONE HOME BOX)',
-                '(UNPACKING BOX)',
-                '(HINDSIGHT BOX)',
-                '(LiS:TC BOX)'
-            ];
-
-            content.forEach((paragraph) => {
-                const paragraphText = paragraph.innerHTML.trim();
-                if (phrasesToRemove.includes(paragraphText)) {
-                    paragraph.remove();
-                }
+            document.querySelectorAll('.back-wrapper').forEach(wrapper => {
+                const initialImage = wrapper.querySelector('.initial-image');
+                const innerWrapper = wrapper.querySelector('.inner-wrapper');
+                const lidImage = wrapper.querySelector('.lid-image');
+                initialImage.style.display = 'none';
+                initialImage.style.opacity = 0;
+                innerWrapper.style.opacity = 1;
+                lidImage.style.display = 'none'
+                lidImage.style.opacity = 0;
             });
         }
     });

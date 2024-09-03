@@ -140,3 +140,33 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 }
+
+@media screen and (max-width: 768px) {
+    
+    .text-image {
+        height: 74.5vh;
+        width: 90vw;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .inner {
+        height: auto;
+        width: auto;
+    }
+
+    .text-box {
+        left: 10vw;
+        top: 4.2vh;
+        width: 75.5vw;
+        height: 65.5vh;
+    }
+
+    .back-wrapper {
+        height: 75vh;
+    }
+
+    .text {
+        height: 100%;
+    }
+}

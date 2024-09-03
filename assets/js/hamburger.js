@@ -47,19 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth < 768) {
         window.addEventListener('scroll', function() {
             const scrollTop = window.scrollY;
-            console.log({scrollTop})
 
             if (Math.abs(scrollTop - lastScrollTop) > 10) {
                 if (scrollTop > lastScrollTop) {
                     // User is scrolling down
                     burger.style.top = '-100px'; // header element height
                     icon.style.top = '-100px';
-                    console.log("Down scroll.");
                 } else {
                     // User is scrolling up
                     burger.style.top = '0';
                     icon.style.top = '0';
-                    console.log("Up scroll.");
                 }
                 lastScrollTop = scrollTop;
             }
