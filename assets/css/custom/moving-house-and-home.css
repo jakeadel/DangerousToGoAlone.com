@@ -38,7 +38,8 @@
     transition: opacity 0.5s ease;
     opacity: 1;
     z-index: 4;
-    animation: subtlePulse 1.5s infinite ease-in-out;
+    cursor: pointer;
+    /* animation: subtlePulse 1.5s infinite ease-in-out; */
 }
 
 .text-image {
@@ -53,6 +54,21 @@
     height: 700px;
     right: 0;
     bottom: 0;
+    cursor: pointer;
+    transition: 0.3s ease;
+    /* animation: subtlePulse 1.5s infinite ease-in-out; */
+}
+
+.lid-image:hover {
+    animation: shake 0.9s;
+}
+
+@keyframes shake {
+    20% { transform: rotate(2deg); }
+    40% { transform: rotate(0deg); }
+    60% { transform: rotate(2deg); }
+    80% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg);}
 }
 
 .text-box {

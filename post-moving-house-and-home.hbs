@@ -109,7 +109,7 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth >= 768) {
             const content = document.querySelectorAll('.original-content > *');
             const originalContent = document.querySelector('.original-content');
             originalContent.style.display = 'none';
@@ -139,16 +139,40 @@
             document.getElementById("box4").innerHTML = sequences[4];
             document.getElementById("sixth").innerHTML = sequences[5];
 
-            // Add click event listeners to initial images
-            document.querySelectorAll('.initial-image').forEach(image => {
-                image.addEventListener('click', () => {
-                    image.style.opacity = 0;
+            // Add click event listeners to both initial images and lid images in a single loop
+            document.querySelectorAll('.back-wrapper').forEach(wrapper => {
+                const initialImage = wrapper.querySelector('.initial-image');
+                const innerWrapper = wrapper.querySelector('.inner-wrapper');
+                const lidImage = wrapper.querySelector('.lid-image');
+
+                // Initially hide the initial image and show the inner-wrapper
+                initialImage.style.display = 'none';
+                innerWrapper.style.opacity = 1;
+
+                // Event listener to show the inner-wrapper and hide the initial image
+                initialImage.addEventListener('click', () => {
+                    initialImage.style.opacity = 0;
                     
                     setTimeout(() => {
-                        image.style.display = 'none';
-                        // Select the closest .inner-wrapper to the clicked image and set its opacity to 1
-                        image.closest('.back-wrapper').querySelector('.inner-wrapper').style.opacity = 1;
+                        initialImage.style.display = 'none';
+                        innerWrapper.style.display = 'block';
+                        innerWrapper.style.opacity = 1;
                     }, 300);
+                });
+
+                // Event listener to hide the inner-wrapper and show the initial image
+                lidImage.addEventListener('click', () => {
+                    if (innerWrapper.style.opacity == 1) {
+                        innerWrapper.style.opacity = 0;
+
+                        setTimeout(() => {
+                            innerWrapper.style.display = 'none';
+                            initialImage.style.display = 'block';
+                            setTimeout(() => {
+                                initialImage.style.opacity = 1;
+                            }, 10); // A short delay to ensure the display change is applied
+                        }, 300);
+                    }
                 });
             });
         }
@@ -171,6 +195,7 @@
             });
         }
     });
+
 </script>
 
 {{/post}}
