@@ -103,6 +103,10 @@
             "bluesky_link": {
                 "type": "text",
                 "default": "#"
+            },
+            "instagram_link": {
+                "type": "text",
+                "default": "#"
             }
         }
     },

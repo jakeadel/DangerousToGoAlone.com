@@ -46,9 +46,16 @@ into the {body} of the default.hbs template --}}
         <div class="articles">
             <div class="issue">Issue {{@custom.issue_number}}:&nbsp;<h4 style="margin: 0;">{{@custom.issue_title}}</h4></div>
             <div class="articles-background"></div>
+            {{#get "posts" include="tags,authors" filter="featured:true" limit="1" as |featured|}}
+                {{#foreach featured}}
+                    {{> "post-card" shouldBeLarge="true"}}
+                {{/foreach}}
+            {{/get}}
             {{#foreach posts}}
-                {{> "post-card"}}
-            {{/foreach}}
+                {{#unless featured}}
+                    {{> "post-card"}}
+                {{/unless}}
+            {{/foreach}}   
             
         </div>
     </div>
