@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', function() {
             const scrollTop = window.scrollY;
 
-            if (Math.abs(scrollTop - lastScrollTop) > 10) {
+            if (scrollTop > 0 && Math.abs(scrollTop - lastScrollTop) > 20) {
                 if (scrollTop > lastScrollTop) {
                     // User is scrolling down
                     burger.style.top = '-100px'; // header element height

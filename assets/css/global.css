@@ -40,9 +40,6 @@
         --site-icon-width: 85px;
         --page-header-height: 60vh;
     }
-    .nav-link {
-        font-size: 50px;
-    }
 
     .hamburger-container {
         width: 65px;
@@ -51,6 +48,10 @@
     .description-wrapper {
         left: 450px;
         opacity: 1;
+    }
+    .sub-buttons .nav-link {
+        font-size: 3vh;
+        width: 6em;
     }
 }
 
@@ -73,9 +74,6 @@
 
     .articles {
         width: calc(100% - (var(--hamburger-gutter) + var(--hamburger-button-size)) * 2) !important;
-    }
-    .nav-link {
-        font-size: 60px;
     }
 
     .article-wrapper:hover .description-wrapper {
@@ -111,9 +109,6 @@
 
     .articles {
         width: calc(100% - (var(--hamburger-gutter) + var(--hamburger-button-size))) !important;
-    }
-    .nav-link {
-        font-size: 100px;
     }
 
     .article-wrapper:hover .description-wrapper {
@@ -356,6 +351,27 @@ a:hover {
     opacity: 0;
 }
 
+.sub-buttons {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 80%;
+}
+
+.sub-buttons .nav-link {
+    flex-basis: 100%;
+    background-color: black;
+    font-size: 1.2em;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.sub-buttons .nav-link .nav-link-text {
+    width: 100%;
+    text-align: center;
+}
+
 .nav-title {
     font-size: 50px;
     text-decoration: none;
@@ -364,7 +380,6 @@ a:hover {
     font-family: "Alfa Slab One", serif;
     font-weight: 400;
     font-style: normal;
-    padding-bottom: 25px;
     text-decoration: none;
     border: none;
     width: 300px;
@@ -433,12 +448,16 @@ a:hover {
     color: white;
 }
 
+.nav-link {
+    font-size: 7vh;
+}
+
 .nav-icons-wrapper {
     display: flex;
     width: auto;
     height: 50px;
     gap: 30px;
-    bottom: 20vh;
+    bottom: 17vh;
     position: absolute;
     margin-right: auto;
     margin-left: auto;
@@ -474,6 +493,10 @@ a:hover {
 
 .close-menu-content {
     color: black;
+}
+
+.page-template {
+    padding-top: 60px;
 }
 
 @keyframes fadeEffect {
