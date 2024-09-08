@@ -99,10 +99,9 @@
         const sequences = [];
         let tempContent = '';
 
-        console.log({content})
 
         content.forEach((paragraph, index) => {
-            console.log("Paragraph:",  paragraph.innerHTML)
+
             if (paragraph.textContent.includes('QUIT')) {
                 sequences.push(tempContent);
                 tempContent = '';
@@ -114,14 +113,12 @@
         if (tempContent) {
             sequences.push(tempContent);
         }
-        console.log({sequences})
 
         let index = 0;
         const sequence_text = document.getElementById("sequence-text");
         sequence_text.innerHTML = sequences[0];
 
         function fadeIn() {
-            console.log({index})
             if (index === 5) {
                 return;
             }

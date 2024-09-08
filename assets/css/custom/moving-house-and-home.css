@@ -86,12 +86,31 @@
 }
 
 .text {
-    width: 100%;
+    width: 97%;
     height: 88%;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+    position: absolute;
+    border-bottom: solid black 1px;
+    scroll-behavior: smooth;
 }
+
+.down-arrow {
+    position: absolute;
+    left: 177px;
+    top: 552px;
+    width: 60px;
+    height: 60px;
+    transform: rotate(90deg);
+    opacity: 75%;
+    z-index: 10;
+}
+
+.down-arrow:hover {
+    cursor: pointer;
+}
+
 
 .text p, #first p, #sixth p {
     font-size: var(--page-font-size);
@@ -167,6 +186,17 @@
     }
 
     .text {
-        height: 100%;
+        height: 85%;
+        width: 94%;
+    }
+    
+    .down-arrow {
+        position: absolute;
+        left: 42vw;
+        top: 63vh;
+        width: 10vh;
+        height: 10vh;
+        transform: rotate(90deg);
+        opacity: 75%;
     }
 }
