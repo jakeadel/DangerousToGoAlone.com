@@ -1,0 +1,187 @@
+{{!< default}}
+
+{{#post}}
+
+<div class="color-block color-block-1"></div>
+<div class="color-block color-block-2"></div>
+
+<div id="content" class="page">
+    {{#if feature_image}}
+    <div class="page-header">
+        <div class="page-image-wrapper">
+            <img class="page-img" src="{{feature_image}}" alt="{{feature_image_alt}}">
+        </div>
+    </div>
+    {{/if}}
+    <span class="img-text">{{feature_image_caption}}</span>
+    <div class="page-intro top">
+        <div class="page-tag">
+            {{#primary_tag}}
+            <h3 class="tag-text">
+                <a href="{{url}}">{{name}}</a>
+            </h3>
+            {{/primary_tag}}
+        </div>
+    </div>
+    {{#if title}}
+    <div class="page-title">
+        <h1 class="page-title-text">{{title}}</h1>
+    </div>
+    {{/if}}
+    <div class="page-intro bottom">
+        <div class="page-description">
+            <p class="page-description-text">
+                {{custom_excerpt}}
+            </p>
+        </div>
+        {{#primary_author}}
+        <div class="page-author">
+            <h2 class="page-author-text">By <a href="{{url}}">{{name}}</a></h2>
+        </div>
+        {{/primary_author}}
+    </div>
+    <div class="break"></div>
+    <div id="page-text-wrapper" class="page-text-wrapper">
+            {{content}}
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{{asset "css/custom/it-was-lonely-in-the-wasteland.css"}}">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modals = [];  // To store the content for modals
+        const content = document.getElementById('page-text-wrapper');
+
+        // Get all children of the content wrapper
+        let children = Array.from(content.children);  // Convert to an array for easier manipulation
+
+        let currentModal = null;  // Tracks if we're collecting content for a modal
+        const nodesToRemove = [];  // To store nodes to be removed later
+
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i];
+
+            // If a p tag is found and starts with "Survivor", create a button
+            if (child.tagName === 'P' && child.textContent.startsWith('Survivor')) {
+                // Create a button and insert it in place of the p tag
+                const button = document.createElement('button');
+                button.classList.add('log-button');
+                button.textContent = child.textContent;
+                button.setAttribute('data-modal-index', modals.length);  // Associate the button with the modal index
+
+                // Replace the p tag with the button
+                content.replaceChild(button, child);
+
+                // Set up a click event to trigger the modal
+                button.addEventListener('click', function() {
+                    button.clicked = true;
+                    openModal(modals[button.getAttribute('data-modal-index')]);
+                });
+
+                // Start collecting content for the modal
+                currentModal = {
+                    title: child.textContent,
+                    paragraphs: [],
+                };
+            }
+
+            // If we're collecting modal content, add p tags to the current modal until a center tag is found
+            if (currentModal && child.tagName === 'P') {
+                currentModal.paragraphs.push(child.textContent);
+                // Mark the p tag for removal
+                nodesToRemove.push(child);
+            }
+
+            // End collecting modal content when a center tag is found
+            if (currentModal && child.tagName === 'CENTER') {
+                modals.push(currentModal);  // Save the modal content
+
+                // Mark the center tag for removal
+                nodesToRemove.push(child);
+
+                currentModal = null;  // Reset modal collection state
+            }
+        }
+
+        console.log({modals})
+
+        // Remove all marked nodes
+        nodesToRemove.forEach(node => {
+            if (node.parentNode === content) {
+                content.removeChild(node);
+            }
+        });
+
+        // Function to open a modal with the stored content
+        function openModal(modalContent) {
+            const curr = document.getElementById('modal-active')
+            if (curr !== null) {
+                return;
+            }
+            const modalWrapper = document.createElement('div');
+            modalWrapper.classList.add('modal-wrapper');
+            document.body.style.overflow = 'hidden';
+            modalWrapper.innerHTML = `
+                <div id="modal-active" class="modal">
+                    <div class="modal-inner">
+                        <div class="text-wrapper">
+                            ${modalContent.paragraphs.map(p => `<p>${p}</p>`).join('')}
+                        </div>
+                        <div class="screen-footer">
+                            <div class="progress-bar-wrapper">
+                                <span class="progress-bar-text">Progress</span>
+                                <div class="progress-bar">
+                                    <div class="inner-bar"></div>
+                                </div>
+                            </div>
+                            <button class="close-button">
+                                <span class="close-button-text">
+                                    Close log
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `
+
+            document.body.appendChild(modalWrapper);
+
+            setTimeout(() => {
+                modalWrapper.classList.add('show');
+            }, 10);
+
+            // Close the modal on clicking the close button or outside the modal content
+            modalWrapper.querySelector('.close-button').addEventListener('click', () => {
+                document.body.removeChild(modalWrapper);
+                document.body.style.overflow = 'scroll';
+            });
+
+            window.onclick = function(event) {
+                if (event.target === modalWrapper) {
+                    document.body.removeChild(modalWrapper);
+                    document.body.style.overflow = 'scroll';
+                }
+            };
+        }
+
+        // Function to handle modal scroll triggering
+        window.onscroll = function() {
+            const buttons = document.querySelectorAll('button[data-modal-index]');
+            for (let button of buttons) {
+                if (button.clicked === true) {
+                    continue;
+                }
+                const rect = button.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (rect.bottom <= windowHeight) {
+                    button.click();
+                }
+            }
+        };
+    });
+
+</script>
+
+{{/post}}
